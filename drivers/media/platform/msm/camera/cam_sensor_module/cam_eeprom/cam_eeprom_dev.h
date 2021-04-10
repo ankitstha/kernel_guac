@@ -27,7 +27,6 @@
 #include <cam_mem_mgr.h>
 #include <cam_subdev.h>
 #include "cam_soc_util.h"
-#include "cam_context.h"
 
 #define DEFINE_MSM_MUTEX(mutexname) \
 	static struct mutex mutexname = __MUTEX_INITIALIZER(mutexname)
@@ -35,7 +34,7 @@
 #define PROPERTY_MAXSIZE 32
 
 #define MSM_EEPROM_MEMORY_MAP_MAX_SIZE         80
-#define MSM_EEPROM_MAX_MEM_MAP_CNT             16
+#define MSM_EEPROM_MAX_MEM_MAP_CNT             8
 #define MSM_EEPROM_MEM_MAP_PROPERTIES_CNT      8
 
 enum cam_eeprom_state {
@@ -152,7 +151,6 @@ struct cam_eeprom_intf_params {
 
 /**
  * struct cam_cmd_conditional_wait - Conditional wait command
- * @device_name     :   Device name
  * @pdev            :   platform device
  * @spi             :   spi device
  * @eeprom_mutex    :   eeprom mutex
@@ -165,10 +163,10 @@ struct cam_eeprom_intf_params {
  * @cam_eeprom_state:   eeprom_device_state
  * @userspace_probe :   flag indicates userspace or kernel probe
  * @cal_data        :   Calibration data
+ * @device_name     :   Device name
  *
  */
 struct cam_eeprom_ctrl_t {
-	char device_name[CAM_CTX_DEV_NAME_MAX_LENGTH];
 	struct platform_device *pdev;
 	struct spi_device *spi;
 	struct mutex eeprom_mutex;
@@ -183,31 +181,8 @@ struct cam_eeprom_ctrl_t {
 	enum cam_eeprom_state cam_eeprom_state;
 	bool userspace_probe;
 	struct cam_eeprom_memory_block_t cal_data;
+	char device_name[20];
 };
-
-#ifdef VENDOR_EDIT
-#define CALIB_DATA_LENGTH         1689
-#define WRITE_DATA_MAX_LENGTH     8
-#define WRITE_DATA_DELAY          5
-
-struct cam_write_eeprom_t {
-	uint32_t cam_id;
-	uint32_t baseAddr;
-	uint32_t calibDataSize;
-	uint32_t isWRP;
-	uint32_t WRPaddr;
-	unsigned char calibData[CALIB_DATA_LENGTH];
-} __attribute__ ((packed));
-
-#define EEPROM_CHECK_DATA_MAX_SIZE 196
-struct check_eeprom_data_t{
-	uint32_t cam_id;
-	uint32_t checkDataSize;
-	uint32_t startAddr;
-	uint32_t eepromData_checksum;
-} __attribute__ ((packed));
-#endif
-
 
 int32_t cam_eeprom_update_i2c_info(struct cam_eeprom_ctrl_t *e_ctrl,
 	struct cam_eeprom_i2c_info_t *i2c_info);
