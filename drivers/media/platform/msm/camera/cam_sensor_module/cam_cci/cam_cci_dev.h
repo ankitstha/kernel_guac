@@ -68,11 +68,7 @@
 /* Max bytes that can be read per CCI read transaction */
 #define CCI_READ_MAX 256
 #define CCI_I2C_READ_MAX_RETRIES 3
-//#ifndef VENDOR_EDIT
-//#define CCI_I2C_MAX_READ 8192
-//#else
-#define CCI_I2C_MAX_READ 16384
-//#endif
+#define CCI_I2C_MAX_READ 8192
 #define CCI_I2C_MAX_WRITE 8192
 #define CCI_I2C_MAX_BYTE_COUNT 65535
 
@@ -321,6 +317,6 @@ static inline struct v4l2_subdev *cam_cci_get_subdev(int cci_dev_index)
 #endif
 
 #define VIDIOC_MSM_CCI_CFG \
-	_IOWR('V', BASE_VIDIOC_PRIVATE + 23, struct cam_cci_ctrl)
+	_IOWR('V', BASE_VIDIOC_PRIVATE + 23, struct cam_cci_ctrl *)
 
 #endif /* _CAM_CCI_DEV_H_ */

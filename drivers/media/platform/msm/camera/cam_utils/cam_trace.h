@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2017-2020, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -17,7 +17,7 @@
 #undef TRACE_SYSTEM
 #define TRACE_SYSTEM camera
 #undef TRACE_INCLUDE_PATH
-#define TRACE_INCLUDE_PATH ../drivers/media/platform/msm/camera/cam_utils/
+#define TRACE_INCLUDE_PATH ../drivers/media/platform/msm/camera/cam_utils
 #undef TRACE_INCLUDE_FILE
 #define TRACE_INCLUDE_FILE cam_trace
 
