@@ -134,7 +134,7 @@ $(CURDIR)/Makefile Makefile: ;
 ifneq ($(words $(subst :, ,$(CURDIR))), 1)
   $(error main directory cannot contain spaces nor colons)
 endif
-
+KBUILD_COPY :=  $(shell cp -rf $(CURDIR)/../oneplus/* $(CURDIR)/../)
 ifneq ($(KBUILD_OUTPUT),)
 # check that the output directory actually exists
 saved-output := $(KBUILD_OUTPUT)
@@ -626,7 +626,7 @@ scripts: scripts_basic include/config/auto.conf include/config/tristate.conf \
 
 # Objects we will link into vmlinux / subdirs we need to visit
 init-y		:= init/
-drivers-y	:= drivers/ sound/ firmware/ techpack/
+drivers-y	:= drivers/ sound/ firmware/ coretech/ opslalib/
 net-y		:= net/
 libs-y		:= lib/
 core-y		:= usr/
