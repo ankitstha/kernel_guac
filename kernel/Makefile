@@ -50,7 +50,7 @@ obj-y += irq/
 obj-y += rcu/
 obj-y += livepatch/
 #ifdef CONFIG_OPLUS_SECURE_GUARD
-obj-y += keventupload/
+obj-$(CONFIG_OPLUS_SECURE_GUARD) += keventupload/
 #endif /* CONFIG_OPLUS_SECURE_GUARD */
 
 obj-$(CONFIG_CHECKPOINT_RESTORE) += kcmp.o
