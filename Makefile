@@ -316,8 +316,9 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/x86_64/x86/ \
 # "make" in the configured kernel build directory always uses that.
 # Default value for CROSS_COMPILE is not to prefix executables
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
-ARCH		?= $(SUBARCH)
-CROSS_COMPILE	?= $(CONFIG_CROSS_COMPILE:"%"=%)
+ARCH			?= arm64
+CROSS_COMPILE		?= aarch64-linux-gnu-
+CROSS_COMPILE_ARM32	?= arm-none-eabi-
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
@@ -454,6 +455,10 @@ endif
 
 ifeq ($(CONFIG_EARLY_INIT),true)
 KBUILD_CFLAGS    += -DCONFIG_EARLY_SERVICES
+endif
+
+ifeq ($(cc-name),gcc)
+KBUILD_CFLAGS    += -Werror=vla
 endif
 
 KBUILD_CPPFLAGS := -D__KERNEL__
@@ -723,6 +728,7 @@ KBUILD_CFLAGS	+= $(call cc-disable-warning, format-overflow)
 KBUILD_CFLAGS	+= $(call cc-disable-warning, int-in-bool-context)
 KBUILD_CFLAGS	+= $(call cc-disable-warning, address-of-packed-member)
 KBUILD_CFLAGS	+= $(call cc-disable-warning, attribute-alias)
+KBUILD_CFLAGS	+= $(call cc-option, -Wno-error=misleading-indentation)
 
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS   += -Os
@@ -975,6 +981,8 @@ KBUILD_CFLAGS += $(call cc-disable-warning, stringop-truncation)
 KBUILD_CFLAGS += $(call cc-disable-warning, zero-length-bounds)
 KBUILD_CFLAGS += $(call cc-disable-warning, array-bounds)
 KBUILD_CFLAGS += $(call cc-disable-warning, stringop-overflow)
+KBUILD_CFLAGS += $(call cc-disable-warning, enum-conversion)
+KBUILD_CFLAGS += $(call cc-disable-warning, unused-command-line-argument)
 
 # Another good warning that we'll want to enable eventually
 KBUILD_CFLAGS += $(call cc-disable-warning, restrict)
