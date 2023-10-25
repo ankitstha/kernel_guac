@@ -7926,12 +7926,6 @@ int dsi_display_prepare(struct dsi_display *display)
 						display->name, rc);
 			goto error;
 		}
-		/* update dsi ctrl for new mode */
-		rc = dsi_display_pre_switch(display);
-		if (rc)
-			pr_err("[%s] panel pre-prepare-res-switch failed, rc=%d\n",
-					display->name, rc);
-		goto error;
 	}
 
 	if (!(mode->dsi_mode_flags & DSI_MODE_FLAG_POMS) &&
