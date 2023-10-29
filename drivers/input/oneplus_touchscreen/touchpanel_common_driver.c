@@ -76,7 +76,7 @@ int pointx[2] = {0, 0};
 int pointy[2] = {0, 0};
 #define ABS(a,b) ((a - b > 0) ? a - b : b - a)
 
-uint8_t DouTap_enable = 0;				 // double tap
+uint8_t DouTap_enable = 1;				 // double tap
 uint8_t UpVee_enable  = 0;				 // V
 uint8_t LeftVee_enable = 0; 			 // >
 uint8_t RightVee_enable = 0;			 // <
